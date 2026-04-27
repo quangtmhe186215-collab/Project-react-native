@@ -3,8 +3,11 @@ import { Text, View, StyleSheet } from 'react-native';
 export default function HomeScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Hello World!</Text>
-      <Text style={styles.subText}>Dự án Todo đầu tiên của tôi</Text>
+      <View>
+        <Text style={styles.header}> Welcome Project MMA</Text>
+      </View>
+      <Text style={{ color: "red", fontSize: 30}}>Tên Tôi Là Quang!</Text>
+      <Text style={styles.hello1}>Dự án React-Native đầu tiên của tôi</Text>
     </View>
   );
 }
@@ -25,4 +28,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: 'gray',
   },
+  hello1 : {
+    color: "red", fontSize: 25,
+    borderWidth: 1
+  },
+  header:{
+    fontSize: 30, color:"blue", fontWeight: "bold"
+  }
 });
