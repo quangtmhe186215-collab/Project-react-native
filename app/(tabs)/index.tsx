@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { Text, View, StyleSheet, ScrollView } from 'react-native';
+import { Text, View, StyleSheet, ScrollView, FlatList } from 'react-native';
 
 export default function HomeScreen() {
 
@@ -23,7 +23,7 @@ export default function HomeScreen() {
 
   return (
     <View>
-      <ScrollView>
+      {/* <ScrollView>
         {students.map(item => {
           return (
             <View key={item.id} style={styles.container}>
@@ -31,7 +31,19 @@ export default function HomeScreen() {
             </View>
           )
         })}
-      </ScrollView>
+      </ScrollView> */}
+
+    <FlatList
+      data={students}
+      keyExtractor={item => item.id + ""}
+      renderItem={(data) => {
+         return(
+          <View style={styles.container}>
+            <Text>{data.item.name}</Text>
+          </View>
+         )
+      }}
+    />
     </View>
   );
 }
@@ -43,6 +55,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     fontWeight: "bold",
     height: 60,
+    marginHorizontal: 10,
   },
   text: {
     fontSize: 30,
