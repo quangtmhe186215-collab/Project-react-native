@@ -1,13 +1,29 @@
-import { Text, View, StyleSheet } from 'react-native';
+
+import { useState } from 'react';
+import { Text, View, StyleSheet, Button} from 'react-native';
 
 export default function HomeScreen() {
+
+  const [name, setName] = useState<string>("Quang TM!");
+  const [count, setCount] = useState<number>(0);
+  const [test, setTest] = useState({
+    name: "Quang TM",
+    age: 23
+  })
+
   return (
     <View style={styles.container}>
-      <View>
-        <Text style={styles.header}> Welcome Project MMA</Text>
-      </View>
-      <Text style={{ color: "red", fontSize: 30}}>Tên Tôi Là Quang!</Text>
-      <Text style={styles.hello1}>Dự án React-Native đầu tiên của tôi</Text>
+       <Text>
+            {name}
+            {JSON.stringify(test)} Hello word
+       </Text>
+       <Text>
+            Count = {count}
+       </Text>
+       <View>
+            <Button title='Tăng' onPress={() => setCount(count + 1)}></Button>
+            <Button title='Giamr' onPress={() => setCount(count - 1)}></Button>
+       </View>
     </View>
   );
 }
