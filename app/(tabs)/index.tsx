@@ -1,22 +1,20 @@
 
 import { useState } from 'react';
-import { Text, View, StyleSheet, Button} from 'react-native';
+import { Text, View, StyleSheet, Button, TextInput} from 'react-native';
+import { blue } from 'react-native-reanimated/lib/typescript/Colors';
 
 export default function HomeScreen() {
 
-  const [name, setName] = useState<string>("Quang TM!");
   const [count, setCount] = useState<number>(0);
-  const [test, setTest] = useState({
-    name: "Quang TM",
-    age: 23
-  })
+  const [name,setName] = useState<string>("");
 
   return (
     <View style={styles.container}>
-       <Text>
-            {name}
-            {JSON.stringify(test)} Hello word
-       </Text>
+       <Text>Name: {name}</Text>
+       <TextInput onChangeText={(value) => setName(value)}
+       style={{borderWidth: 1,
+                borderColor: "blue", width : 200, padding : 20
+       }}></TextInput>
        <Text>
             Count = {count}
        </Text>
