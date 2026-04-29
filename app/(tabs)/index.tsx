@@ -1,76 +1,88 @@
 
 import { useState } from 'react';
-import { Text, View, StyleSheet, ScrollView, FlatList } from 'react-native';
+import { Text, View, StyleSheet, FlatList, TextInput, Button } from 'react-native';
 
 export default function HomeScreen() {
 
-  const [students, setStudents] = useState([
-    { id: 1, age: 20, name: "Quang" },
-    { id: 2, age: 21, name: "Nam" },
-    { id: 3, age: 19, name: "Huy" },
-    { id: 4, age: 22, name: "Minh" },
-    { id: 5, age: 20, name: "Tuan" },
-    { id: 6, age: 23, name: "Dat" },
-    { id: 7, age: 18, name: "Khanh" },
-    { id: 8, age: 21, name: "Long" },
-    { id: 9, age: 20, name: "Duc" },
-    { id: 11, age: 19, name: "Nghĩa" },
-    { id: 12, age: 19, name: "Chấn" },
-    { id: 13, age: 19, name: "Sang" },
-    { id: 14, age: 19, name: "Thắng" }
-  ]);
+  type Todo = {
+    id: string;
+    title: string;
+  }
+
+  const [text, setText] = useState("");
+  const [todos, setTodos] = useState<Todo[]>([]);
+
+  const handleAdd = () => {
+    if(text.trim() === ''){
+      alert("Vui lòng nhập input")
+      return;
+    }
+
+      const newTodo = {
+         id: Date.now().toString(),
+         title: text
+      };
+
+      setTodos([...todos, newTodo]);
+      setText('');
+  };
+
 
 
   return (
-    <View>
-      {/* <ScrollView>
-        {students.map(item => {
-          return (
-            <View key={item.id} style={styles.container}>
-              <Text>{item.name} - {item.age}</Text>
-            </View>
-          )
-        })}
-      </ScrollView> */}
+    <View style={styles.container}>
+        {/* header */}
+        <Text style={styles.header}>APP Xàm Lồn</Text>
+        {/* form */}
+        <View>
+            <TextInput style={styles.textInput}
+             placeholder='Enter Todo ....'
+             value={text}
+             onChangeText={setText}
+             ></TextInput>
 
-    <FlatList
-      data={students}
-      keyExtractor={item => item.id + ""}
-      renderItem={(data) => {
-         return(
-          <View style={styles.container}>
-            <Text>{data.item.name}</Text>
-          </View>
-         )
-      }}
-    />
+            <Button
+             title='Add Todo List'
+             onPress={handleAdd}
+             ></Button>
+        </View>
+         {/* list */}
+          <FlatList
+               data={todos}
+               keyExtractor={(item) => item.id}
+               renderItem={({item}) => (
+                <View style={styles.item}>
+                    <Text>{item.title}</Text>
+                </View>
+               )}
+          />
+
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 3,
-    backgroundColor: "pink",
-    marginBottom: 15,
-    fontWeight: "bold",
-    height: 60,
-    marginHorizontal: 10,
-  },
-  text: {
-    fontSize: 30,
-    fontWeight: 'bold',
-    color: 'blue',
-  },
-  subText: {
-    fontSize: 18,
-    color: 'gray',
-  },
-  hello1: {
-    color: "red", fontSize: 25,
-    borderWidth: 1
-  },
   header: {
-    fontSize: 30, color: "blue", fontWeight: "bold"
+     backgroundColor: "orange",
+     paddingHorizontal: 20,
+     fontSize: 50,
+     textAlign: "center"
+  },
+  container: {
+    paddingTop: 50,
+    paddingHorizontal: 20,
+    flex: 1,
+  },
+  textInput: {
+    borderWidth: 1,
+    borderColor: "black",
+    marginTop: 20,
+    marginHorizontal: 30,
+    marginBottom: 30,
+  },
+  item: {
+    padding: 15,
+    backgroundColor: '#ddd',
+    marginTop: 10
   }
 });
