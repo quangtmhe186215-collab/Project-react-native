@@ -1,6 +1,7 @@
 
 import { useState } from 'react';
-import { Text, View, StyleSheet, FlatList, TextInput, Button } from 'react-native';
+import { Text, View, StyleSheet, FlatList, TextInput, Button, Pressable } from 'react-native';
+import { opacity } from 'react-native-reanimated/lib/typescript/Colors';
 
 export default function HomeScreen() {
 
@@ -11,6 +12,11 @@ export default function HomeScreen() {
 
   const [text, setText] = useState("");
   const [todos, setTodos] = useState<Todo[]>([]);
+
+  const deleteTodo = (id: string) => {
+    const newTodo = todos.filter(item => item.id !== id);
+    setTodos(newTodo)
+  }
 
   const handleAdd = () => {
     if(text.trim() === ''){
@@ -51,9 +57,12 @@ export default function HomeScreen() {
                data={todos}
                keyExtractor={(item) => item.id}
                renderItem={({item}) => (
-                <View style={styles.item}>
-                    <Text>{item.title}</Text>
-                </View>
+                <Pressable 
+                onPress={() => deleteTodo(item.id)}
+                style={({pressed}) => ({opacity: pressed ? 1 : 2 })}
+                >
+                     <Text style={styles.item}>{item.title}</Text>
+                </Pressable>
                )}
           />
 
